@@ -1,0 +1,37 @@
+deployment:
+  name: wordpress
+  namespace: "default"
+  image: wordpress
+  port: "80"
+  replicas: 4
+  app: wordpress
+
+db:
+  name: mysql
+  namespace: default
+  replicas: 1
+  app: mysql
+  image: mysql
+  port: "3306"
+  MYSQL_HOST: mysql
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: wp
+  MYSQL_USER: tim
+  MYSQL_PASSWORD: tim
+
+appsvc:
+  name: wordpress
+  namespace: "default"
+  app: wordpress
+  port: "80"
+  targetPort: "80"
+  type: NodePort
+
+dbsvc:
+  name: mysql
+  namespace: "default"
+  app: mysql
+  port: "3306"
+  targetPort: "3306"
+  type: ClusterIP
+
